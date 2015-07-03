@@ -1,4 +1,8 @@
 FROM alpine
-RUN apk update && apk add gcc git libffi-dev musl-dev openssl-dev py-pip python-dev
+RUN apk --update add libffi openssl py-pip python
+
+RUN apk add gcc git libffi-dev musl-dev openssl-dev python-dev
 RUN pip install git+https://github.com/openstack/python-openstackclient.git
+RUN apk del gcc git libffi-dev musl-dev openssl-dev python-dev
+
 ENTRYPOINT ["openstack"]
